@@ -1,109 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizzopia - Your Ultimate Quiz Conduction Platform</title>
-    <link rel="icon" href="favicon.png" type="image/x-icon">
     <style>
         body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f0f0f0;
+            color: #333;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
         }
 
-        .header {
-            background-color: #e74c3c;
+        header {
+            background-color: #ff6347;
             color: white;
             text-align: center;
-            padding: 20px;
-            font-size: 30px;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            padding: 20px 0;
         }
 
         .container {
-            width: 80%;
-            margin: auto;
+            max-width: 800px;
+            margin: 20px auto;
             padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .logo {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto;
             display: block;
+            width: 100px;
+            margin: 0 auto;
         }
 
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        .feature {
-            background-color: #3498db;
+        h2 {
+            color: #ff6347;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li::before {
+            content: "\2022";
+            color: #ff6347;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .premium-pack {
+            padding: 20px;
+            background-color: #ff6347;
             color: white;
             text-align: center;
-            padding: 20px;
             border-radius: 5px;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            margin-top: 20px;
         }
 
-        .premium-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-            display: block;
-            margin: 30px auto;
+        .premium-pack h2 {
+            margin-top: 0;
+        }
+
+        .premium-pack ul {
+            margin-top: 10px;
+        }
+
+        .get-started {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .contact-us {
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 
 <body>
-    <div class="header">
-        <h1>Quizzopia</h1>
-        <img src="logo.png" alt="Quizzopia Logo" class="logo">
-        <p>A site for quiz conduction with your questions</p>
-    </div>
-
+    <header>
+        <img class="logo" src="logo.png" alt="Quizzopia Logo">
+    </header>
     <div class="container">
-        <div class="features">
-            <div class="feature">
-                <h2>Create Custom Quizzes</h2>
-                <p>With Quizzopia, you can easily create custom quizzes with your own questions and answers. The intuitive
-                    interface makes it simple to add, edit, and organize questions to suit your needs.</p>
-            </div>
-            <div class="feature">
-                <h2>Multiple Question Types</h2>
-                <p>Quizzopia supports various question types, including multiple-choice, true/false, and open-ended questions,
-                    providing a diverse and engaging experience for participants.</p>
-            </div>
-            <div class="feature">
-                <h2>Premium Pack</h2>
-                <p>We offer a premium pack that grants you access to exclusive features, such as advanced quiz analytics,
-                    custom branding, and the ability to conduct unlimited quizzes. Upgrade to the premium pack and take your
-                    quizzes to the next level!</p>
-            </div>
-            <div class="feature">
-                <h2>User-Friendly Interface</h2>
-                <p>Quizzopia is designed to be user-friendly and accessible for users of all skill levels. You don't need to
-                    be a tech expert to create and conduct quizzes seamlessly.</p>
-            </div>
-            <div class="feature">
-                <h2>Real-Time Results</h2>
-                <p>As a quiz organizer, you can view real-time results and analytics to gauge participants' performance and
-                    gain valuable insights into your quizzes' effectiveness.</p>
-            </div>
+        <h1>Quizzopia - Your Ultimate Quiz Conduction Platform</h1>
+        <p><strong>A site for quiz conduction with your questions</strong></p>
+
+        <h2>Features</h2>
+        <ul>
+            <li>Create Custom Quizzes: With Quizzopia, you can easily create custom quizzes with your own questions and answers. The intuitive interface makes it simple to add, edit, and organize questions to suit your needs.</li>
+            <li>Multiple Question Types: Quizzopia supports various question types, including multiple-choice, true/false, and open-ended questions, providing a diverse and engaging experience for participants.</li>
+            <li>Premium Pack: We offer a premium pack that grants you access to exclusive features, such as advanced quiz analytics, custom branding, and the ability to conduct unlimited quizzes. Upgrade to the premium pack and take your quizzes to the next level!</li>
+            <li>User-Friendly Interface: Quizzopia is designed to be user-friendly and accessible for users of all skill levels. You don't need to be a tech expert to create and conduct quizzes seamlessly.</li>
+            <li>Real-Time Results: As a quiz organizer, you can view real-time results and analytics to gauge participants' performance and gain valuable insights into your quizzes' effectiveness.</li>
+        </ul>
+
+        <div class="premium-pack">
+            <h2>Premium Pack</h2>
+            <ul>
+                <li>Advanced Quiz Analytics</li>
+                <li>Custom Branding</li>
+                <li>Unlimited Quizzes</li>
+            </ul>
         </div>
 
-        <button class="premium-button">Upgrade to Premium Pack</button>
+        <div class="get-started">
+            <p><strong>Get Started</strong></p>
+            <p>Visit our website <a href="https://www.quizzopia.com">www.quizzopia.com</a> to get started. Sign up for a free account and start creating and conducting quizzes today!</p>
+        </div>
+
+        <div class="contact-us">
+            <p><strong>Contact Us</strong></p>
+            <p>If you have any questions or need assistance, please don't hesitate to contact our support team at <a href="mailto:support@quizzopia.com">support@quizzopia.com</a>.</p>
+        </div>
     </div>
 </body>
 
