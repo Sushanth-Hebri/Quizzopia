@@ -3,246 +3,441 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Home</title>
-    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+    <title>Quiz Mania - Interactive Learning Platform</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            /* Add padding to ensure consistent appearance */
-            display: flex;
-            /* Add display flex to center the content vertically */
-            justify-content: center;
-            /* Center the content horizontally */
-            align-items: center;
-            /* Center the content vertically */
-            min-height: 100vh;
-            /* Set a minimum height to ensure the content fills the screen */
-            background-color: #f0f0f0;
-            /* Add a background color for consistency */
-            font-family: Arial, sans-serif;
-            /* Specify a fallback font-family */
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #6366f1;
+            --primary-dark: #4338ca;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --background: #f8fafc;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --card: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
         }
 
-        .heading {
+        .dark-mode {
+            --primary: #818cf8;
+            --primary-light: #a5b4fc;
+            --primary-dark: #6366f1;
+            --background: #0f172a;
+            --text: #e2e8f0;
+            --text-light: #94a3b8;
+            --card: #1e293b;
+            --border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-in-out;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 80px;
+            background: var(--primary);
+            padding: 1rem;
+            box-shadow: var(--shadow-lg);
+            z-index: 50;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            background-color: red;
+        }
+
+        .header h1 {
             color: white;
-            text-align: center;
-            font-size: 30px;
-            box-shadow: 1px 4px 2px 3px black;
-            padding: 20px 0;
-            /* Add padding for better appearance */
-            z-index: 1;
-            /* Add a higher z-index to keep it on top of other content */
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin: 0;
+            background: linear-gradient(to right, #ffffff, #e2e8f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .container {
-            width: 80%;
-            height: 100vh;
+            max-width: 1200px;
+            margin: 7rem auto 2rem;
+            padding: 0 1rem;
+            width: 100%;
         }
 
-        .qpalete {
-            /* background-color: green; */
-            height: auto;
-            margin-top: 150px;
-            border-radius: 10px;
-            box-shadow: 2px 2px 4px 8px rgba(0, 0, 0, 0.423);
-
-
+        .quiz-card {
+            background: var(--card);
+            border-radius: 1rem;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
         }
 
-        .question {
-            align-items: center;
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-section {
+            padding: 2rem;
+            background: var(--primary);
+            color: white;
             display: flex;
-            background-color: yellow;
-            height: 150px;
             justify-content: space-between;
-        }
-
-        .questionyes {
-            display: flex;
-            color: black;
-            font-size: 30px;
-            line-height: 1.2;
-            margin-left: 30px;
-        }
-
-        .next {
-            display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: 35px;
-            height: 70px;
-            width: 40px;
-            right: 0 !important;
+            gap: 1rem;
         }
 
-        .arrowright {
-            font-size: 55px;
-            margin-right: 20px;
+        .question-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.4;
+            flex: 1;
         }
 
-        .arrowright:hover {
-            background-color: rgba(0, 0, 0, 0.362);
-            cursor: pointer;
+        .next-button {
+            background: white;
+            color: var(--primary);
+            border: none;
+            width: 3rem;
+            height: 3rem;
             border-radius: 50%;
-        }
-
-        .option {
-            /* background-color: blue; */
-            height: 450px;
             display: flex;
-            flex-direction: column;
-            margin-top: 100px;
-            justify-content: center;
-        }
-
-        .optionrow1 {
-            /* background-color: brown; */
-            display: flex;
-            height: 225px;
-            justify-content: center;
-        }
-
-        .optionrow2 {
-            /* background-color: brown; */
-            display: flex;
-            height: 225px;
-            justify-content: center;
-
-        }
-
-        .opt {
-            padding: 10px;
-            height: 150px;
-            width: 400px;
-            background-color: rgb(51, 190, 149);
-            border-radius: 10px;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: 23px;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
         }
 
-        .opt:hover {
-            background-color: rgb(43, 171, 43);
+        .next-button:hover {
+            transform: translateX(2px);
+            box-shadow: var(--shadow);
         }
 
-        .opt1,
-        .opt3 {
-            margin-right: 200px;
+        .next-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
-        .opt.selected {
-            background-color: rgb(43, 171, 43) !important;
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        .option-button {
+            background: var(--card);
+            border: 2px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--text);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .option-button:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .option-button.selected {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .option-button.correct {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .option-button.incorrect {
+            background: var(--danger);
+            border-color: var(--danger);
+            color: white;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--border);
+            margin-top: -4px;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .quiz-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quiz-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin-top: 5rem;
+            }
+
+            .question-section {
+                padding: 1.5rem;
+            }
+
+            .question-text {
+                font-size: 1.25rem;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+            }
+
+            .quiz-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="heading">
-        <h1>QUIZ MANIA</h1>
-    </div>
+    <header class="header">
+        <h1>Quiz Mania</h1>
+        <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
     <div class="container">
-        <div class="qpalete">
-            <div class="question">
-                <div class="questionyes" id="questionText">1. Name the Mission did by ISRO recently</div>
-                <div class="next" onclick="showNextQuestion()">
-                    <span class="material-symbols-outlined arrowright">
-                        arrow_forward
-                    </span>
-                </div>
+        <div class="quiz-card">
+            <div class="question-section">
+                <div class="question-text" id="questionText"></div>
+                <button class="next-button" onclick="showNextQuestion()" id="nextButton" disabled>
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
             </div>
-            <div class="option">
-                <div class="optionrow1">
-                    <div class="opt opt1" onclick="selectOption(0)">
-                        <h1>A. Mangalyan</h1>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+
+            <div class="options-grid" id="optionsGrid"></div>
+
+            <div class="quiz-footer">
+                <div class="quiz-stats">
+                    <div class="stat">
+                        <span class="stat-label">Question</span>
+                        <span class="stat-value"><span id="currentQuestion">1</span>/<span id="totalQuestions">10</span></span>
                     </div>
-                    <div class="opt opt2" onclick="selectOption(1)">
-                        <h1>A. Chandrayan 3</h1>
-                    </div>
-                </div>
-                <div class="optionrow1">
-                    <div class="opt opt3" onclick="selectOption(2)">
-                        <h1>A. Chandrayan 2</h1>
-                    </div>
-                    <div class="opt opt4" onclick="selectOption(3)">
-                        <h1>A. Chandrayan 4</h1>
+                    <div class="stat">
+                        <span class="stat-label">Score</span>
+                        <span class="stat-value" id="score">0</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script>
-        // Your existing CSS styles...
-        // Questions and Options Arrays
-        const questions = [
-            "Name the mission did by ISRO recently",
-            "Who is the author of 'Harry Potter' series?",
-            // Add more questions here
-        ];
+      const questions = [
+    "What was ISRO's most recent successful mission?",
+    "Who is the author of the 'Harry Potter' series?",
+    "Which planet is known as the Red Planet?",
+    "What is the capital of Japan?",
+    "Who painted the Mona Lisa?",
+    "What is the largest organ in the human body?",
+    "Which element has the chemical symbol 'Au'?",
+    "What is the fastest land animal?",
+    "Who wrote 'Romeo and Juliet'?",
+    "What is the largest planet in our solar system?"
+];
 
-        const options = [
-            ["A. Mangalyan", "A. Chandrayan 3", "A. Chandrayan 2", "A. Chandrayan 4"],
-            ["A. J.K. Rowling", "B. Stephen King", "C. Dan Brown", "D. George R.R. Martin"],
-            // Add more options for each question here
-        ];
+const options = [
+    ["Mangalyaan", "Chandrayaan-3", "Chandrayaan-2", "Aditya L-1"],
+    ["J.K. Rowling", "Stephen King", "Dan Brown", "George R.R. Martin"],
+    ["Mars", "Venus", "Jupiter", "Mercury"],
+    ["Tokyo", "Kyoto", "Osaka", "Hiroshima"],
+    ["Leonardo da Vinci", "Michelangelo", "Pablo Picasso", "Vincent van Gogh"],
+    ["Skin", "Heart", "Brain", "Liver"],
+    ["Gold", "Silver", "Aluminum", "Copper"],
+    ["Cheetah", "Lion", "Gazelle", "Leopard"],
+    ["William Shakespeare", "Charles Dickens", "Jane Austen", "Mark Twain"],
+    ["Jupiter", "Saturn", "Uranus", "Neptune"]
+];
 
-        // Answer Array (Question Number, Correct Option Index)
-        const answers = [
-            [0, 0], // Question 1, Correct Option Index 0 (A. Mangalyan)
-            [1, 0], // Question 2, Correct Option Index 0 (A. J.K. Rowling)
-            // Add more answers for each question here
-        ];
+const correctAnswers = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-        // Selected Option Array
-        const selectedAnswers = [];
+let currentQuestionIndex = 0;
+let score = 0;
+let selectedAnswers = new Array(questions.length).fill(null);
 
-        let currentQuestionIndex = 0;
+function updateUI() {
+    document.getElementById('questionText').textContent = `${currentQuestionIndex + 1}. ${questions[currentQuestionIndex]}`;
+    
+    const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+    document.getElementById('progressBar').style.width = `${progress}%`;
 
-        function showNextQuestion() {
-            addToSelectedAnswers();
-            if (currentQuestionIndex < questions.length - 1) {
-                currentQuestionIndex++;
-                document.getElementById("questionText").textContent = questions[currentQuestionIndex];
-                const optionElements = document.querySelectorAll(".opt");
-                for (let i = 0; i < optionElements.length; i++) {
-                    optionElements[i].querySelector("h1").textContent = options[currentQuestionIndex][i];
-                    optionElements[i].classList.remove("selected");
-                }
-                const selectedOption = selectedAnswers[currentQuestionIndex];
-                if (selectedOption !== undefined) {
-                    const optionElement = document.querySelector(`.opt${selectedOption + 1}`);
-                    optionElement.classList.add("selected");
-                }
-            }
+    document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+    document.getElementById('totalQuestions').textContent = questions.length;
+    document.getElementById('score').textContent = score;
+
+    const optionsGrid = document.getElementById('optionsGrid');
+    optionsGrid.innerHTML = '';
+
+    options[currentQuestionIndex].forEach((option, index) => {
+        const button = document.createElement('button');
+        button.className = 'option-button';
+        if (selectedAnswers[currentQuestionIndex] === index) {
+            button.classList.add('selected');
         }
+        button.onclick = () => selectOption(index);
+        button.textContent = option;
+        optionsGrid.appendChild(button);
+    });
 
-        function selectOption(optionIndex) {
-            const selectedOption = document.querySelector(".opt.selected");
-            if (selectedOption) {
-                selectedOption.classList.remove("selected");
-            }
-            const optionElement = document.querySelector(`.opt${optionIndex + 1}`);
-            optionElement.classList.add("selected");
-        }
+    document.getElementById('nextButton').disabled = selectedAnswers[currentQuestionIndex] === null;
+}
 
-        function addToSelectedAnswers() {
-            const selectedOption = document.querySelector(".opt.selected");
-            if (selectedOption) {
-                const selectedOptionIndex = parseInt(selectedOption.classList[1].replace("opt", "")) - 1;
-                selectedAnswers[currentQuestionIndex] = selectedOptionIndex;
-                console.log("Selected Answers:", selectedAnswers);
-            }
+function selectOption(optionIndex) {
+    const buttons = document.querySelectorAll('.option-button');
+    buttons.forEach(button => button.classList.remove('selected', 'correct', 'incorrect'));
+    buttons[optionIndex].classList.add('selected');
+
+    // Handle score tracking correctly
+    if (selectedAnswers[currentQuestionIndex] === null) {
+        if (optionIndex === correctAnswers[currentQuestionIndex]) {
+            score++;
         }
+    } else {
+        if (selectedAnswers[currentQuestionIndex] === correctAnswers[currentQuestionIndex]) {
+            score--; // Deduct score if changing a correct answer
+        }
+        if (optionIndex === correctAnswers[currentQuestionIndex]) {
+            score++;
+        }
+    }
+
+    selectedAnswers[currentQuestionIndex] = optionIndex;
+
+    document.getElementById('score').textContent = score;
+    document.getElementById('nextButton').disabled = false;
+
+    // Highlight correct and incorrect answers
+    if (optionIndex === correctAnswers[currentQuestionIndex]) {
+        buttons[optionIndex].classList.add('correct');
+    } else {
+        buttons[optionIndex].classList.add('incorrect');
+        buttons[correctAnswers[currentQuestionIndex]].classList.add('correct');
+    }
+}
+
+function showNextQuestion() {
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        updateUI();
+    } else {
+        document.querySelector('.quiz-card').innerHTML = `
+            <div class="question-section">
+                <div class="question-text">Quiz Completed!</div>
+            </div>
+            <div class="options-grid" style="text-align: center; padding: 3rem;">
+                <h2>Your Final Score: ${score}/${questions.length}</h2>
+                <p style="margin-top: 1rem; color: var(--text-light);">
+                    ${score === questions.length ? 'Perfect score! Excellent work!' : 
+                      score >= questions.length * 0.7 ? 'Great job! Keep it up!' :
+                      score >= questions.length * 0.5 ? 'Good effort! Room for improvement.' :
+                      'Keep practicing! You can do better!'}
+                </p>
+                <button onclick="location.reload()" class="option-button" style="margin-top: 2rem;">
+                    Try Again
+                </button>
+            </div>
+        `;
+    }
+}
+
+// Initialize the quiz
+updateUI();
+
     </script>
 </body>
 </html>
